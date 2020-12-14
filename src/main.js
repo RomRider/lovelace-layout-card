@@ -89,12 +89,13 @@ class LayoutCard extends LitElement {
   }
 
   async updated(changedproperties) {
-    if(!this.cards.length
+    if(!this.cardsBuilt && !this.cards.length
       && ((this._config.entities && this._config.entities.length)
         || (this._config.cards && this._config.cards.length))
       ) {
       // Build cards and layout
       const width = this.clientWidth;
+      this.cardsBuilt = true;
       this.cards = await this.build_cards();
       await this.place_cards();
       this.requestUpdate();
@@ -258,7 +259,7 @@ class LayoutCard extends LitElement {
         display: flex;
         flex-direction: row;
         justify-content: center;
-        margin-top: -8px;
+        margin-top: 0px;
       }
 
       .column {
@@ -267,10 +268,10 @@ class LayoutCard extends LitElement {
         overflow-x: hidden;
       }
       .column:first-child {
-        margin-left: -4px;
+        margin-left: 0px;
       }
       .column:last-child {
-        margin-right: -4px;
+        margin-right: 0px;
       }
       :host(.panel) .column {
         margin: 0;
